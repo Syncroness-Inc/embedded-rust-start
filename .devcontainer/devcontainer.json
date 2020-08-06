@@ -19,7 +19,6 @@
 		"tamasfe.even-better-toml",
 		"matklad.rust-analyzer",
 		"serayuzgur.crates",
-		"webfreak.debug",
 		"marus25.cortex-debug",
 	],
 
@@ -47,5 +46,6 @@
 	// Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
 	//"remoteUser": "rustacean",
 
-	"mounts": ["source=/dev,target=/dev,type=bind"]
+	"mounts": ["source=/dev,target=/dev,type=bind"] // Actually allows the target device to be accessed 
+													// within the container.
 }

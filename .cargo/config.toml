@@ -1,11 +1,15 @@
-[target.thumbv7em-none-eabihf]
 # Allows intuitive use of cargo run
-runner = "gdb-multiarch -q"
+[target.thumbv7em-none-eabihf]
+runner = "gdb-multiarch -q -x run.gdb"
 
-# 
+# Requirement of the cortex-m-rt crate.
+# I believe Tlink.x is a file that specifies memory layout.
 rustflags = [
   "-C", "link-arg=-Tlink.x",
 ]
 
 [build]
 target = "thumbv7em-none-eabihf"
+
+[test]
+target = "x86_64-unknown-linux-gnu"

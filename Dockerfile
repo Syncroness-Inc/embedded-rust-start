@@ -10,6 +10,9 @@ RUN apt-get install -y \
     openocd=0.10.0-5 \
     htop=2.2.0-1+b1
 
+# Creating a soft link so a vscode debugger doesn't get confused with naming
+RUN ln -s /usr/bin/gdb-multiarch /usr/bin/arm-none-eabi-gdb
+
 # Setting the user to non-root privlages
 RUN useradd --create-home --shell /bin/bash rustacean
 USER rustacean
@@ -21,9 +24,13 @@ RUN rustup target add thumbv7em-none-eabihf
 RUN cargo install itm --vers 0.3.1
 RUN cargo install cargo-binutils --vers 0.3.1
 
+# For debugging only
+RUN cargo install cargo-expand --vers 1.0.0
+RUN rustup install nightly 
+
 # Needed to have gdb automatically flash the device. This allows the user to do `cargo run` 
 # and have it automatically start running the application on the target.
-run echo "add-auto-load-safe-path /workspaces/blinky/.gdbinit" > /home/rustacean/.gdbinit
+RUN echo "add-auto-load-safe-path /workspaces/blinky/.gdbinit" > /home/rustacean/.gdbinit
 
 # Not needed when working within VSCode but nice when debugging from terminal.
 WORKDIR /workspaces/blinky

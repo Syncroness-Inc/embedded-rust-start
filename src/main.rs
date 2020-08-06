@@ -1,20 +1,41 @@
-#![no_std]
+#![cfg_attr(not(test), no_std)]
 #![no_main]
 
+//! A basic blinky application. The purpose of this application is to serve as an easy starting point
+//! for embedded rust projects. Be sure to read the `README.md`. It gives usefull information for how
+//! to quickly get your environment up and running within vscode and illustrates some useful tools
+//! such as a debugger and a way to flash your microcontroller. All of these tools ship with docker
+//! container and have been . 
+
+#[cfg(test)]
+extern crate std;
+
+#[cfg(not(test))]
 use cortex_m_rt::entry;
+
+#[cfg(not(test))]
 use stm32f4xx_hal as hal;
 // Program will have an odd linking error if you don't bring 
 // stm32f4xx_hal into scope using use keyword
+
+#[cfg(not(test))]
 use hal::{
     prelude::*,
     stm32,
 };
 
 // NOTE(allow) bug rust-lang/rust#53964
+#[cfg(not(test))]
 #[allow(unused_imports)] 
 use panic_halt;
 
-#[entry]
+#[cfg(test)]
+fn main() {
+    panic!("This is a dumby main so unit tests will compile");
+}
+
+#[cfg_attr(not(test), entry)]
+#[cfg(not(test))]
 fn main() -> ! {
     let board_peripherals = stm32::Peripherals::take().unwrap();
     let processor_peripherals = cortex_m::Peripherals::take().unwrap();
@@ -34,4 +55,18 @@ fn main() -> ! {
         led2.set_low().unwrap();
         delay.delay_ms(1000_u32);
     }
+}
+
+fn add_two( x:u32) -> u32 {
+    x + 2
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn add_two_good_value() {
+        assert_eq!(2, add_two(0));
+    } 
 }
