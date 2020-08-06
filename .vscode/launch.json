@@ -1,0 +1,56 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "cwd": "${workspaceRoot}",
+            "executable": "./bin/executable.elf",
+            "name": "Microcontroller cortex extention",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd"
+        },
+        
+
+        {
+            "type": "gdb",
+            "request": "launch",
+            "name": "Debug Microcontroller",
+            "target": "${workspaceRoot}/target/thumbv7em-none-eabihf/debug/blinky",
+            "gdbpath": "/usr/bin/gdb-multiarch",
+            "cwd": "${workspaceRoot}",
+            "autorun": [
+                "target remote :3333",
+                "load",
+                //"continue", // Dont do this. I originally wanted to do this because the debugger would 
+                              // autmatically hault at the entry point of the program. Instead, I wanted 
+                              // the debugger to hault at my first manual breakpoint. Instead of haulting
+                              // at the first manual breakpoint, the debugger will not stop and future attempts
+                              // to invoke the debugger at the remote device will fail unless the docker
+                              // container gets reset and/or (not entirely sure) the target device gets
+                              // power cycled. 
+            ],
+            "showDevDebugOutput": true
+        },
+        {
+            "type": "gdb",
+            "request": "launch",
+            "name": "Launch Program",
+            "target": "./target/thumbv7em-none-eabihf/debug/blinky",
+            "cwd": "${workspaceRoot}",
+            "valuesFormatting": "parseText"
+        },
+        {
+            "type": "gdb",
+            "request": "attach",
+            "name": "Attach to gdbserver",
+            "executable": "./target/thumbv7em-none-eabihf/debug/blinky",
+            "target": ":3333",
+            "remote": true,
+            "cwd": "${workspaceRoot}",
+            "valuesFormatting": "parseText"
+        },
+    ]
+}

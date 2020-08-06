@@ -1,5 +1,8 @@
 [target.thumbv7em-none-eabihf]
-runner = "arm-none-eabi-gdb -q"
+# Allows intuitive use of cargo run
+runner = "gdb-multiarch -q"
+
+# 
 rustflags = [
   "-C", "link-arg=-Tlink.x",
 ]
