@@ -1,37 +1,34 @@
 #![cfg_attr(not(test), no_std)]
-#![no_main]
+#![cfg_attr(not(test), no_main)]
 
 //! A basic blinky application. The purpose of this application is to serve as an easy starting point
 //! for embedded rust projects. Be sure to read the `README.md`. It gives usefull information for how
 //! to quickly get your environment up and running within vscode and illustrates some useful tools
 //! such as a debugger and a way to flash your microcontroller. All of these tools ship with docker
-//! container and have been . 
+//! container and have been .
 
-#[cfg(test)]
-extern crate std;
+cfg_if::cfg_if! {
+    if #[cfg(not(test))] {
+        use cortex_m_rt::entry;
+        use stm32f4xx_hal as hal;
+        use hal::{
+            prelude::*,
+            stm32,
+        };
 
-#[cfg(not(test))]
-use cortex_m_rt::entry;
+        #[allow(unused_imports)]
+        use panic_halt;
+    }
+}
 
-#[cfg(not(test))]
-use stm32f4xx_hal as hal;
-// Program will have an odd linking error if you don't bring 
+// Program will have an odd linking error if you don't bring
 // stm32f4xx_hal into scope using use keyword
 
-#[cfg(not(test))]
-use hal::{
-    prelude::*,
-    stm32,
-};
-
 // NOTE(allow) bug rust-lang/rust#53964
-#[cfg(not(test))]
-#[allow(unused_imports)] 
-use panic_halt;
 
 #[cfg(test)]
 fn main() {
-    panic!("This is a dumby main so unit tests will compile");
+    println!("Hello, world!");
 }
 
 #[cfg_attr(not(test), entry)]
@@ -45,9 +42,9 @@ fn main() -> ! {
     let system_clock = clock_controler.cfgr.sysclk(48.mhz()).freeze();
 
     let mut delay = hal::delay::Delay::new(processor_peripherals.SYST, system_clock);
-    
+
     let mut led2 = board_peripherals.GPIOG.split().pg13.into_push_pull_output();
-    
+
     loop {
         // On for 1s, off for 1s
         led2.set_high().unwrap();
@@ -57,7 +54,7 @@ fn main() -> ! {
     }
 }
 
-fn add_two( x:u32) -> u32 {
+fn add_two(x: u32) -> u32 {
     x + 2
 }
 
@@ -68,5 +65,5 @@ mod tests {
     #[test]
     fn add_two_good_value() {
         assert_eq!(2, add_two(0));
-    } 
+    }
 }
