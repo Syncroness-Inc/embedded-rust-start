@@ -15,4 +15,7 @@ cortex-m-rt = "0.6.12"
 panic-halt = "0.2.0"
 stm32f4xx-hal = {version = "0.8.3", features = ["stm32f407", "rt"], target = "thumbv7em-none-eabihf"}
 
+[features]
+stm32f407 = ["stm32f4xx-hal/stm32f407"]
+
 [target.x86_64-unknown-linux-gnu]

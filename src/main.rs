@@ -25,12 +25,6 @@ cfg_if::cfg_if! {
 // stm32f4xx_hal into scope using use keyword
 
 // NOTE(allow) bug rust-lang/rust#53964
-
-#[cfg(test)]
-fn main() {
-    println!("Hello, world!");
-}
-
 #[cfg_attr(not(test), entry)]
 #[cfg(not(test))]
 fn main() -> ! {

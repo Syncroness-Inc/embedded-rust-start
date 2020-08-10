@@ -20,6 +20,8 @@
 		"matklad.rust-analyzer",
 		"serayuzgur.crates",
 		"marus25.cortex-debug",
+		"vadimcn.vscode-lldb",
+		"yzhang.markdown-all-in-one"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.

@@ -5,13 +5,30 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug Unit Tests",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--target", "x86_64-unknown-linux-gnu"
+                ]
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        
+    
+        {
             "type": "cortex-debug",
             "request": "attach",
             "name": "Debug Microcontroller",
-            "executable": "${workspaceRoot}/target/thumbv7em-none-eabihf/debug/blinky",
-            
+            "executable": "${workspaceRoot}/target/thumbv7em-none-eabihf/debug/blinky",      
             "gdbTarget": "localhost:3333", // See comment associcated with "servertype":"external"
             "servertype": "external", // This is because we started this server ourselves when we opened
+                                      // the container. This configuration step can be found in 
+                                      // the container. This configuration step can be found in 
                                       // the container. This configuration step can be found in 
                                       // devcontainer.json.
             "armToolchainPath": "/usr/bin",

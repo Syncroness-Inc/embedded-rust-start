@@ -11,5 +11,6 @@ rustflags = [
 [build]
 target = "thumbv7em-none-eabihf"
 
-[test]
-target = "x86_64-unknown-linux-gnu"
+# Sadly specifying targets for tests is not a feature yet.
+#[test]
+#target = "x86_64-unknown-linux-gnu"
