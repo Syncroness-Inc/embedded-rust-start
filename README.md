@@ -42,7 +42,26 @@ You can cross compile the application by running `cargo build`.
 You can build and deploy the application to the target device using `cargo run`.
 
 # Unit testing
-To compile and run unit tests on your local machine run `cargo test`.
+- To compile and run unit tests on your local machine run
+    ``` 
+    cargo test --target x86_64-unknown-linux-gnu
+    ```
+
+    Alternatively you can use a script that runs this command for you.
+    ```
+    ./scripts/run_unit_tests.sh
+    ```
+
+- You can also build the unit tests without running them using 
+    ```
+    cargo test --target x86_64-unknown-linux-gnu --no-run
+    ```
+    or running
+    ```
+    ./scripts/build_unit_tests.sh
+    ```
+
+    Building unit tests without running them can be usefull sometimes for debugging and code coverage purposes.
 
 # Debugging Remote Devce
 In VSCode, press the debugger icon, select `Debug Microcontroller`, and press the play button.
@@ -59,15 +78,17 @@ Unlike debugging the micro controller, you don't need to compile the executible 
 # Configuration Files
 A brief description of configuration files for the environment and what fields that may need to change from project to project.
 
-- [.cargo/config.toml](https://doc.rust-lang.org/cargo/reference/config.html) - Specifies what happens when you run `cargo build` and `cargo run`. 
+- [.cargo/config.toml](https://doc.rust-lang.org/cargo/reference/config.html) - Specifies default arguments to cargo when you run `cargo build` and `cargo run`. 
 
-    `target` will likey change between projects depending on the hardware.
+    `target` will likey change between projects depending on the hardware. See
+    https://forge.rust-lang.org/release/platform-support.html for a list of supported platforms.
 
 - [devcontainer.json](https://aka.ms/vscode-remote/devcontainer.json) - Specifies how the docker container should be run and VSCode extentions to be installed.
 
     `extentions` may change between projects.
 
-    `postStartCommand` specifies the interface and target for the debugger. The interface and target much change between projects. See https://github.com/ntfreak/openocd/blob/master/README for valid interface and target options.
+    `postStartCommand` specifies the interface and target for the debugger. The interface and target must change between projects. See
+    https://github.com/ntfreak/openocd/blob/master/README for valid interface and target options.
 
 
 - [.vscode/launch.json](https://go.microsoft.com/fwlink/?linkid=830387) - Stores configurations for running the debuggers.
@@ -81,7 +102,7 @@ A brief description of configuration files for the environment and what fields t
 
     https://github.com/nrf-rs/nrf-hal
 
-
+- `run.gdb` - Specifies initial gdb commands to run when `cargo run` is used.
 
 # Additional Resources
 
@@ -98,3 +119,5 @@ A brief description of configuration files for the environment and what fields t
 - [The Cargo Book](https://doc.rust-lang.org/cargo/) - Great resource for how to create different builds.
 
 - [Writing udev rules](http://www.reactivated.net/writing_udev_rules.html) - The ins and outs of udev rules.
+
+- [awesome-embedded-rust](https://github.com/rust-embedded/awesome-embedded-rust) - A curated and maintained list of embedded rust resources. Great place to periodically check for new developments and off the shelf solutions.
