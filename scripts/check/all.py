@@ -11,7 +11,10 @@ check_scripts = [check_script for check_script in os.listdir(check_directory) if
 # Otherwise exit with status code 0.
 exit_error_code = 0
 for check_script in check_scripts:
-    tmp_status_code = os.system(check_directory + "/" + check_script)
+    command = check_directory + "/" + check_script
+    print("Running", command)
+    tmp_status_code = os.system(command)
+    
     if tmp_status_code != 0:
         exit_status_code = os.WEXITSTATUS(tmp_status_code)
 
