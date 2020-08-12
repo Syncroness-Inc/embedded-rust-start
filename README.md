@@ -1,5 +1,5 @@
 # Blinky
-A simple starting project for bare metal rust projects. This repository ships with an environment that allows cross compilation, flashing the target device, remote debugging, local unit testing, and local debugging for unit tests. The environment was created with a [STM32F429I Discovery Board](https://www.st.com/content/st_com/en/products/evaluation-tools/product-evaluation-tools/mcu-mpu-eval-tools/stm32-mcu-mpu-eval-tools/stm32-discovery-kits/32f429idiscovery.html) in mind but can be easily configured to accomidate a different device. The remainder of the readme shall provide instructions for how to get the environment up and running, how to use the tools, and point to additional embedded rust resources.
+A simple starting project for bare metal rust projects. This repository ships with an environment that allows cross compilation, flashing the target device, remote debugging, local unit testing, and local debugging for unit tests. The environment was created with a [STM32F429I Discovery Board](https://www.st.com/content/st_com/en/products/evaluation-tools/product-evaluation-tools/mcu-mpu-eval-tools/stm32-mcu-mpu-eval-tools/stm32-discovery-kits/32f429idiscovery.html) in mind but can be easily configured to accomidate a different device. The remainder of the readme shall provide instructions for how to get the environment up and running, how to use the tools, provide narative for how the environment was architected and point to additional embedded rust resources.
 
 Note: Much of the environment setup has been automated using docker following the instructions in the [embedded rust discovery book](https://rust-embedded.github.io/discovery/).
 
@@ -33,10 +33,10 @@ The remaining instructions will assume you have these requirements correctly ins
 
 4. Select the directory containing the `Dockerfile` of this repository. VSCode should reopen and begin building the docker image for the environment. This can take up to 5 minutes the first time.
 
-5. In the docker container, a popup should appear asking you to download the `rust-analyzer`. Select `Download now`. ![download rust analyzer](images/download_rust_analyzer.png)
+Congratulations. You should now have a fully functional envrionment.
 
-# Building
-You can cross compile the application by running `cargo build`.
+# Environment Overview
+
 
 # Building and Running
 You can build and deploy the application to the target device using `cargo run`.
