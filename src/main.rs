@@ -28,7 +28,7 @@ use panic_halt;
 fn main() -> ! {
     let board_peripherals = board::Peripherals::take().unwrap();
     let processor_peripherals = cortex_m::Peripherals::take().unwrap();
-
+    
     // Setting system clock speed
     let clock_controler = board_peripherals.RCC.constrain();
     let system_clock = clock_controler.cfgr.sysclk(48.mhz()).freeze();

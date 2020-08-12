@@ -7,5 +7,3 @@ check_scripts = [check_script for check_script in os.listdir(check_directory) if
 
 for check_script in check_scripts:
     check_error_code = os.system(check_directory + "/" + check_script)
-    if error_code:
-        exit
