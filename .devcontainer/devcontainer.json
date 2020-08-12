@@ -43,7 +43,6 @@
 	// - https://linuxize.com/post/linux-nohup-command/
 	"postStartCommand": [
 		"scripts/startup/openocd_stm32f407.sh",
-		"scripts/startup/watch.sh"
 	],
 
 	// Uncomment to use the Docker CLI from inside the container. See https://aka.ms/vscode-remote/samples/docker-from-docker.
