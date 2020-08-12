@@ -4,7 +4,13 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
         {
             "type": "lldb",
             "request": "launch",
@@ -14,19 +20,18 @@
             "args": [],
             "cwd": "${workspaceFolder}"
         },
-        
         {
             "type": "cortex-debug",
             "request": "attach",
             "name": "Debug Microcontroller",
             "preLaunchTask": "Build stm32f407",
-            "executable": "${workspaceRoot}/target/thumbv7em-none-eabihf/debug/blinky",      
+            "executable": "${workspaceRoot}/target/thumbv7em-none-eabihf/debug/blinky",
             "gdbTarget": "localhost:3333", // See comment associcated with "servertype":"external"
             "servertype": "external", // This is because we started this server ourselves when we opened
-                                      // the container. This configuration step can be found in 
-                                      // the container. This configuration step can be found in 
-                                      // the container. This configuration step can be found in 
-                                      // devcontainer.json.
+            // the container. This configuration step can be found in 
+            // the container. This configuration step can be found in 
+            // the container. This configuration step can be found in 
+            // devcontainer.json.
             "armToolchainPath": "/usr/bin",
             "cwd": "${workspaceRoot}",
         },
