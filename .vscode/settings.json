@@ -1,0 +1,5 @@
+{
+    "rust-analyzer.updates.askBeforeDownload": false,
+    "rust-analyzer.checkOnSave.enable": false,
+}
+

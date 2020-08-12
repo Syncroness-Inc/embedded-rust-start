@@ -1,34 +1,32 @@
-#![cfg_attr(not(test), no_std)]
-#![cfg_attr(not(test), no_main)]
-
 //! A basic blinky application. The purpose of this application is to serve as an easy starting point
 //! for embedded rust projects. Be sure to read the `README.md`. It gives usefull information for how
 //! to quickly get your environment up and running within vscode and illustrates some useful tools
 //! such as a debugger and a way to flash your microcontroller. All of these tools ship with docker
 //! container and have been .
+#![cfg_attr(feature = "embedded_platform", no_std)]
+#![cfg_attr(feature = "embedded_platform", no_main)]
 
-cfg_if::cfg_if! {
-    if #[cfg(not(test))] {
-        use cortex_m_rt::entry;
-        use stm32f4xx_hal as hal;
-        use hal::{
-            prelude::*,
-            stm32,
-        };
+#[cfg(feature = "embedded_platform")] 
+use cortex_m_rt::entry;
 
-        #[allow(unused_imports)]
-        use panic_halt;
-    }
-}
+#[cfg(feature = "stm32f407")]
+use stm32f4xx_hal as hal;
 
-// Program will have an odd linking error if you don't bring
-// stm32f4xx_hal into scope using use keyword
+#[cfg(feature = "st_board")]
+use hal::{
+    prelude::*,
+    stm32 as board,
+};
+
+#[cfg_attr(feature = "embedded_platform", allow(unused_imports))]
+#[cfg(feature = "embedded_platform")]
+use panic_halt;
 
 // NOTE(allow) bug rust-lang/rust#53964
-#[cfg_attr(not(test), entry)]
-#[cfg(not(test))]
+#[cfg_attr(feature = "embedded_platform", entry)]
+#[cfg(feature = "embedded_platform")]
 fn main() -> ! {
-    let board_peripherals = stm32::Peripherals::take().unwrap();
+    let board_peripherals = board::Peripherals::take().unwrap();
     let processor_peripherals = cortex_m::Peripherals::take().unwrap();
 
     // Setting system clock speed
@@ -59,5 +57,14 @@ mod tests {
     #[test]
     fn add_two_good_value() {
         assert_eq!(2, add_two(0));
+    }
+
+    #[test]
+    fn should_not_compile() {
+        #[dervice(Debug)]
+        struct Noncopy;
+        let x = Noncopy{};
+        let y = x;
+        println!(y)
     }
 }

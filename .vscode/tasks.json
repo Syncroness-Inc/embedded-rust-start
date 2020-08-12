@@ -1,0 +1,68 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"command": "scripts/build/tests.sh",
+			"problemMatcher": [
+				"$rustc"
+			],
+			"group": "build",
+			"label": "Check Local Unit Tests"
+		},
+		{
+			"type": "shell",
+			"command": "scripts/check/stm32f407.sh",
+			"problemMatcher": [
+				"$rustc"
+			],
+			"group": "build",
+			"label": "Check stm32f407"
+		},
+		{
+			"type": "shell",
+			"command": "scripts/run/stm32f407",
+			"problemMatcher": [
+				"$rustc"
+			],
+			"label": "Run stm32f407"
+		},
+		{
+			"type": "shell",
+			"command": "scripts/test/local.sh",
+			"problemMatcher": [
+				"$rustc"
+			],
+			"group": "test",
+			"label": "Test Locally"
+		},
+		{
+			"type": "shell",
+			"command": "scripts/build/stm32f407.sh",
+			"problemMatcher": [
+				"$rustc"
+			],
+			"group": "build",
+			"label": "Build stm32f407"
+		},
+		{
+			"type": "shell",
+			"command": "scripts/build/tests.sh",
+			"problemMatcher": [
+				"$rustc"
+			],
+			"group": "build",
+			"label": "Build Local Tests"
+		},
+		{
+			"label": "Watch files for linting",
+			"runOptions": {"runOn": "folderOpen"},
+			"group": "build",
+			"type": "shell",
+			"command": "scripts/startup/watch.sh",
+			"problemMatcher": "$rustc-watch",
+			"isBackground": true
+		},
+		
+	]
+}
