@@ -37,5 +37,9 @@ RUN cargo install cargo-binutils --vers 0.3.1
 # Tool for the rust analyzer
 RUN cargo install cargo-watch --vers 7.5.0
 
+# For code coverage
+# Intentially leaving out version because I want updated versions
+RUN cargo install cargo-tarpaulin
+
 # Not needed when working within VSCode but nice when debugging from terminal.
 WORKDIR /workspaces/blinky

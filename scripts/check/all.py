@@ -9,7 +9,7 @@ check_scripts = [check_script for check_script in os.listdir(check_directory) if
 
 # Run all checks and ruturn the last known error code.
 # Otherwise exit with status code 0.
-exit_error_code = 0
+exit_status_code = 0
 for check_script in check_scripts:
     command = check_directory + "/" + check_script
     print("Running", command)

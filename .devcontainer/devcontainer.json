@@ -22,7 +22,9 @@
 		"marus25.cortex-debug",
 		"vadimcn.vscode-lldb",
 		"yzhang.markdown-all-in-one",
-		"ms-python.python"
+		"ms-python.python",
+		"ivory-lab.jenkinsfile-supp",
+		"ivory-lab.jenkinsfile-support"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.

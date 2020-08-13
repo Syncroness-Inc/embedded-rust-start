@@ -58,13 +58,4 @@ mod tests {
     fn add_two_good_value() {
         assert_eq!(2, add_two(0));
     }
-
-    #[test]
-    fn should_not_compile() {
-        #[dervice(Debug)]
-        struct Noncopy;
-        let x = Noncopy{};
-        let y = x;
-        println!(y)
-    }
 }
