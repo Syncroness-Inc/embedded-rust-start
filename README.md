@@ -36,7 +36,7 @@ The remaining instructions will assume you have these requirements correctly ins
 Congratulations. You should now have a fully functional envrionment.
 
 # Environment Overview
-
+Most of the configurable items within this repository are in the `scripts` directory. These scripts simply serve as a way of centralizing most configurable items and allowing many tasks (such as linting and debugging) to require minimum setup and be highly configurable. 
 
 # Building and Running
 You can build and deploy the application to the target device using `cargo run`.

@@ -19,12 +19,12 @@ pipeline {
       }
     }
 
-    stage('Coverage') {
-      steps {
-        sh './scripts/coverage.sh'
+    // stage('Coverage') {
+    //   steps {
+    //     sh './scripts/coverage.sh'
 
-        step([$class: 'CoberturaPublisher', coberturaReportFile: '*.xml'])
-      }
-    }
+    //     step([$class: 'CoberturaPublisher', coberturaReportFile: '*.xml'])
+    //   }
+    // }
   }
 }
