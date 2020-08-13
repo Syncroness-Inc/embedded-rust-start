@@ -18,6 +18,9 @@ use hal::{
     stm32 as board,
 };
 
+mod leds;
+pub mod error;
+
 #[cfg_attr(feature = "embedded_platform", allow(unused_imports))]
 #[cfg(feature = "embedded_platform")]
 use panic_halt;
