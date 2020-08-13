@@ -9,7 +9,7 @@ pipeline {
   stages {
     stage('Check') {
       steps {
-        sh './scripts/all.py'
+        sh './scripts/check/all.py'
       }
     }
     
