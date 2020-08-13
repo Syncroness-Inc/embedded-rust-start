@@ -12,7 +12,7 @@ use cortex_m_rt::entry;
 #[cfg(feature = "stm32f407")]
 use stm32f4xx_hal as hal;
 
-#[cfg(feature = "st_board")]
+#[cfg(feature = "stm32f407")]
 use hal::{
     prelude::*,
     stm32 as board,
@@ -46,6 +46,7 @@ fn main() -> ! {
     }
 }
 
+/// A trivial function that demonstrates unit testing on our host platform.
 fn add_two(x: u32) -> u32 {
     x + 2
 }
@@ -54,6 +55,8 @@ fn add_two(x: u32) -> u32 {
 mod tests {
     use super::*;
 
+    /// A trivial test to demonstrate we can run 
+    /// unit tests on our host platfroms
     #[test]
     fn add_two_good_value() {
         assert_eq!(2, add_two(0));

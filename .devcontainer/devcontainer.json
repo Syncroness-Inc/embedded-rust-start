@@ -44,7 +44,7 @@
 	// - https://rust-embedded.github.io/discovery/05-led-roulette/flash-it.html
 	// - https://linuxize.com/post/linux-nohup-command/
 	"postStartCommand": [
-		"scripts/startup/openocd_stm32f407.sh",
+		"scripts/startup/openocd_stm32f769.sh",
 	],
 
 	// Uncomment to use the Docker CLI from inside the container. See https://aka.ms/vscode-remote/samples/docker-from-docker.
