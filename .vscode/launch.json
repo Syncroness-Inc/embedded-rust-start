@@ -24,7 +24,7 @@
             "type": "cortex-debug",
             "request": "attach",
             "name": "Debug Microcontroller",
-            "preLaunchTask": "Build stm32f407",
+            "preLaunchTask": "Build All",
             "executable": "${workspaceRoot}/target/thumbv7em-none-eabihf/debug/blinky",
             "gdbTarget": "localhost:3333", // See comment associcated with "servertype":"external"
             "servertype": "external", // This is because we started this server ourselves when we opened

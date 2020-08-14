@@ -1,6 +1,6 @@
 {
     "rust-analyzer.updates.askBeforeDownload": false,
     "rust-analyzer.checkOnSave.enable": false,
-    "rust-analyzer.cargo.allFeatures": true
+    "rust-analyzer.cargo.allFeatures": false
 }
 

@@ -3,7 +3,9 @@
 	"tasks": [
 		{
 			"label": "Watch files for linting",
-			"runOptions": {"runOn": "folderOpen"},
+			"runOptions": {
+				"runOn": "folderOpen"
+			},
 			"group": "build",
 			"type": "shell",
 			"command": "scripts/startup/watcher.sh",
@@ -11,18 +13,20 @@
 			"isBackground": true,
 			"presentation": {
 				"echo": false,
-				
-				// These 2 params are so a terminal does not pop up when there is an error.
-				// This was done because the errors alreay show up in the error section of
-				// VSCode.
-				"reveal": "never", 
+				"reveal": "never",
 				"revealProblems": "never",
-
 				"focus": false,
 				"panel": "shared",
 				"showReuseMessage": true,
 				"clear": false
 			}
 		},
+		{
+			"label": "Build All",
+			"group": "build",
+			"type": "shell",
+			"command": "scripts/build/all.py",
+			"problemMatcher": "$rustc",
+		}
 	]
 }
