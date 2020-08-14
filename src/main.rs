@@ -1,5 +1,5 @@
 //! A basic blinky application. The purpose of this application is to serve as an easy starting point
-//! for embedded rust projects. Be sure to read the `README.md`. It gives usefull information for how
+//! for embedded rust projects. Be sure to read the `README.md`. It gives useful information for how
 //! to quickly get your environment up and running within vscode and illustrates some useful tools
 //! such as a debugger and a way to flash your microcontroller. All of these tools ship with docker
 //! container and have been .
@@ -30,8 +30,8 @@ fn main() -> ! {
     let processor_peripherals = cortex_m::Peripherals::take().unwrap();
     
     // Setting system clock speed
-    let clock_controler = board_peripherals.RCC.constrain();
-    let system_clock = clock_controler.cfgr.sysclk(48.mhz()).freeze();
+    let clock_controller = board_peripherals.RCC.constrain();
+    let system_clock = clock_controller.cfgr.sysclk(48.mhz()).freeze();
 
     let mut delay = hal::delay::Delay::new(processor_peripherals.SYST, system_clock);
 
@@ -56,7 +56,7 @@ mod tests {
     use super::*;
 
     /// A trivial test to demonstrate we can run 
-    /// unit tests on our host platfroms
+    /// unit tests on our host platforms
     #[test]
     fn add_two_good_value() {
         assert_eq!(2, add_two(0));

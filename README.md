@@ -1,5 +1,5 @@
 # Blinky
-A simple starting point for bare metal rust projects. This repository ships with an environment that allows cross compilation, flashing the target device, remote debugging, local unit testing, local coverage reports, and an example for continuous integration. The environment was created with a [STM32F429I Discovery Board](https://www.st.com/content/st_com/en/products/evaluation-tools/product-evaluation-tools/mcu-mpu-eval-tools/stm32-mcu-mpu-eval-tools/stm32-discovery-kits/32f429idiscovery.html) in mind but can be easily configured to accommodate a different device. The remainder of the readme shall provide instructions for how to get the environment up and running, how to use the tools, provide explanation for how some environment features work. 
+A simple starting point for bare metal rust projects. This repository ships with an environment that allows cross compilation, flashing the target device, remote debugging, local unit testing, local coverage reports, and an example for continuous integration. The environment was created with a [STM32F429I Discovery Board](https://www.st.com/content/st_com/en/products/evaluation-tools/product-evaluation-tools/mcu-mpu-eval-tools/stm32-mcu-mpu-eval-tools/stm32-discovery-kits/32f429idiscovery.html) in mind but can be easily configured to accommodate a different device. The remainder of the readme shall provide instructions for how to get the environment up and running, how to use the tools, and provide explanation for how some environment features work. 
 
 Note: Much of the environment setup has been automated using docker following the instructions in the [embedded rust discovery book](https://rust-embedded.github.io/discovery/).
 
@@ -57,34 +57,43 @@ To add this functionality to your own builds, simply specify your own build with
 If for some reason you wish to disable the executables being built before debugging, you can disable it in the `.vscode/launch.json` file.
 
 # Running the executable on the target device
-Simply plug in the device and run the `scripts/run/stm32f407.sh` script. If you are using a device other than the *stm32f407 discovery board* see the configurations file category, to see what else needs to change.
+Simply plug in the device and run the `scripts/run/stm32f407.sh` script. If you are using a device other than the *stm32f407 discovery board* see the configurations file category, to see what else needs to change. You will also need to use a different hardware abstraction layer. It is suggested, but required, to use one of the hardware abstraction layers provided by the rust embedded work group. See 
+
+ - https://github.com/rust-embedded/awesome-embedded-rust#hal-implementation-crates
+- https://github.com/rust-embedded/awesome-embedded-rust#board-support-crates
 
 # Unit testing
 To compile and run unit tests on your local machine run the `scripts/test/local.sh` script. This script serves as a convenience to the programmer and is also invoked within continuous integration.
 
-# Debugging Remote Devce
+# Debugging Remote Device
 In VSCode, press the debugger icon, select `Debug Microcontroller`, and press the play button.
 ![debug microcontroller](images/debug_microcontroller.png)
 
-This will load the program and stop at your first manual breakpoint. 
+This will load the program and stop at the entry point of the program.
+
+# Debugging Unit Tests
+Simply place a breakpoint and press the debug icon hovering over the test you wish to debug ![debug unit tests](images/debug_unit_tests.png)
 
 # Configuration Files
 A brief description of configuration files for the environment and what fields that may need to change from project to project.
 
 - [.cargo/config.toml](https://doc.rust-lang.org/cargo/reference/config.html) - Specifies default arguments to cargo when you run `cargo build` and `cargo run`. 
 
-    `target` will likely change between projects depending on the hardware. See
-    https://forge.rust-lang.org/release/platform-support.html for a list of supported platforms.
+    `rustflags` may need to change depending on the hardware abstraction layer you are using. Appropriate configuration of the `rustflags` can usually be found in the hardware abstraction layer readme.
 
 - [devcontainer.json](https://aka.ms/vscode-remote/devcontainer.json) - Specifies how the docker container should be run and VSCode extentions to be installed.
 
     `extentions` may change between projects.
 
-    `postStartCommand` specifies the interface and target for the debugger. The interface and target must change between projects. See
+    `postStartCommand` calls the `scripts/startup/openocd.sh` script on startup. Configurations for the `openocd` invocation will need to change depending on the hardware you are using. See
     https://github.com/ntfreak/openocd/blob/master/README for valid interface and target options.
 
 
 - [.vscode/launch.json](https://go.microsoft.com/fwlink/?linkid=830387) - Stores configurations for running the debuggers.
+
+- [.vscode/settings.json](https://rust-analyzer.github.io/manual.html) - Stores configuration options for rust-analyzer (process that runs in the background that provides a pleasurable ide experience).
+
+- [.vscode/tasks.json](https://code.visualstudio.com/Docs/editor/tasks) - Stores build tasks for the debugger and launches a linter specified at `scripts/startup/watch.sh`.
 
 - [Dockerfile](https://docs.docker.com/engine/reference/builder/) - Specifies tools to be installed in the environment.
 - `memory.x` - information specifying memory layout of the board.
