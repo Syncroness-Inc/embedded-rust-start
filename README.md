@@ -106,3 +106,9 @@ A brief description of configuration files for the environment and what fields t
 
 - `run.gdb` - Specifies initial gdb commands to run when `cargo run` is used.
 
+# Known Limitations
+You must opt into tasks running in the background for each VSCode workspace. This means auto linting will not be automatically enabled the first time you open this project in VSCode. To enable this, manually run the `Watch files for linting task` by pressing `ctrl+shift+P` -> `Tasks: run task` -> `Watch files for linting`. A pop up should appear in the bottom right saying
+```txt
+This folder has tasks (Watch files for linting) defined in 'tasks.json' that run automatically when you open this folder. Do you allow automatic tasks to run when you open this folder?
+```
+select `Allow and run`
