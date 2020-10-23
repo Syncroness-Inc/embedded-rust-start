@@ -36,34 +36,25 @@ The remaining instructions will assume you have these requirements correctly ins
 Congratulations. You should now have a fully functional environment.
 
 # Environment Overview
-Most of the configurable items within this repository are in the `scripts` directory. These scripts simply serve as a way of centralizing most configurable items to a single directory and allowing many tasks (such as linting and debugging) to require minimum setup and be highly configurable. Its also worth noting that many of these scripts simply invoke cargo, the rust build system, for more detail on how cargo works feel free to refer to the cargo book.
+Most of the configurable items within this repository are in the `Makefile.toml` file. This file simply serves as a way of centralizing most configurable items to a single file and allowing many tasks (such as linting and debugging) to require minimum setup and be highly configurable. Its also worth noting that many of these tasks within the `Makefile.toml` file simply invoke cargo, the rust build system, for more detail on how cargo and cargo make works, feel free to refer to the following documentation.
 
-https://doc.rust-lang.org/cargo/
+- https://doc.rust-lang.org/cargo/
+- https://sagiegurari.github.io/cargo-make/
 
 # Checking the project compiles
-Suppose you have multiple builds for a project. In the case of this particular repo, there is a "stm32f407" build and a "test" build. The "stm32f407" build is meant for the actual embedded device, while the "test" build is meant to run unit tests on the host development machine.
-
-Each of these builds have a check to make sure that they will even compile. You can see the check for these builds in the `scripts/check` directory. One script worth noting is `scripts/check/all.py`. 
-
-`all.py` simply goes though all the scripts in the check directory (besides itself) and runs them. `all.py` integrates with other features of the environment such as linting, and continuous integration. Getting your own builds to integrate with the linting and continuous integration is as easy as adding your own script to the `check` directory. 
-
-`all.py` will be called from the continuous integration and linting processes and will include checks for your own builds.
+`cargo make check-all`
 
 # Building
-Building is similar to checking. We specify an invocation to cargo within a script, and then use that script to expand functionality of the programming environment. In this case, the functionality of the environment we are expanding is making sure our code always compiles before running the debugger. Nothing is more frustrating than discovering bugs are occurring because of an out of date executable.
-
-To add this functionality to your own builds, simply specify your own build within the `scripts/build` directory. Before debuggers are invoked, `scripts/build/all.py` is called to ensure that all executables are up to date.
-
-If for some reason you wish to disable the executables being built before debugging, you can disable it in the `.vscode/launch.json` file.
+`cargo make build-stm`
 
 # Running the executable on the target device
-Simply plug in the device and run the `scripts/run/stm32f407.sh` script. If you are using a device other than the *stm32f407 discovery board* see the configurations file category, to see what else needs to change. You will also need to use a different hardware abstraction layer. It is suggested, but required, to use one of the hardware abstraction layers provided by the rust embedded work group. See 
+Simply plug in the device and run the `cargo make run-stm` task. If you are using a device other than the *stm32f407 discovery board* see the configurations file category (at the end of this readme), to see what else needs to change. You will also need to use a different hardware abstraction layer. It is suggested, but required, to use one of the hardware abstraction layers provided by the rust embedded work group. See 
 
  - https://github.com/rust-embedded/awesome-embedded-rust#hal-implementation-crates
 - https://github.com/rust-embedded/awesome-embedded-rust#board-support-crates
 
 # Unit testing
-To compile and run unit tests on your local machine run the `scripts/test/local.sh` script. This script serves as a convenience to the programmer and is also invoked within continuous integration.
+To compile and run unit tests on your local machine run the `cargo make test-local` task. This script serves as a convenience to the programmer and is also invoked within continuous integration.
 
 # Debugging Remote Device
 In VSCode, press the debugger icon, select `Debug Microcontroller`, and press the play button.
@@ -85,7 +76,7 @@ A brief description of configuration files for the environment and what fields t
 
     `extentions` may change between projects.
 
-    `postStartCommand` calls the `scripts/startup/openocd.sh` script on startup. Configurations for the `openocd` invocation will need to change depending on the hardware you are using. See
+    `postStartCommand` calls the `cargo make startup-openocd` task on startup. Configurations for the `openocd` invocation will need to change depending on the hardware you are using. See
     https://github.com/ntfreak/openocd/blob/master/README for valid interface and target options.
 
 
@@ -93,7 +84,7 @@ A brief description of configuration files for the environment and what fields t
 
 - [.vscode/settings.json](https://rust-analyzer.github.io/manual.html) - Stores configuration options for rust-analyzer (process that runs in the background that provides a pleasurable ide experience).
 
-- [.vscode/tasks.json](https://code.visualstudio.com/Docs/editor/tasks) - Stores build tasks for the debugger and launches a linter specified at `scripts/startup/watch.sh`.
+- [.vscode/tasks.json](https://code.visualstudio.com/Docs/editor/tasks) - Stores build tasks for the debugger and launches a linter using `cargo make startup-watcher`.
 
 - [Dockerfile](https://docs.docker.com/engine/reference/builder/) - Specifies tools to be installed in the environment.
 - `memory.x` - information specifying memory layout of the board.

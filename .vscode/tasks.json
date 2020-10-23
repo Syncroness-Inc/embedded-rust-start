@@ -8,7 +8,7 @@
 			},
 			"group": "build",
 			"type": "shell",
-			"command": "scripts/startup/watcher.sh",
+			"command": "cargo make startup-watcher",
 			"problemMatcher": "$rustc-watch",
 			"isBackground": true,
 			"presentation": {
@@ -25,7 +25,7 @@
 			"label": "Build All",
 			"group": "build",
 			"type": "shell",
-			"command": "scripts/build/all.py",
+			"command": "cargo make build-all",
 			"problemMatcher": "$rustc",
 		}
 	]

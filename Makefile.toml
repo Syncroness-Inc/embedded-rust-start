@@ -1,0 +1,78 @@
+[tasks.build-stm]
+command = "cargo"
+args = [
+    "build", 
+    "--target", "thumbv7em-none-eabihf", 
+    "--features", "stm32f407"
+]
+
+[tasks.build-all]
+dependencies = ["build-stm"]
+
+[tasks.check-stm]
+command = "cargo"
+args = [
+    "check", 
+    "--target", "thumbv7em-none-eabihf", 
+    "--features", "stm32f407"
+]
+
+[tasks.check-tests]
+command = "cargo"
+args = [
+    "check", 
+    "--tests",
+    "--target", "x86_64-unknown-linux-gnu"
+]
+
+[tasks.check-all]
+dependencies = [
+    "check-stm",
+    "check-tests"
+]
+
+[tasks.run-stm]
+command = "cargo"
+args = [
+    "run", 
+    "--target", "thumbv7em-none-eabihf", 
+    "--features", "stm32f407"
+]
+
+[tasks.startup-openocd]
+command = "nohup"
+args = [
+    "openocd", 
+    "-f", "interface/stlink-v2-1.cfg", 
+    "-f", "target/stm32f4x.cfg",
+    ">", "/dev/null", "2>&1", "&"
+]
+
+[tasks.startup-watcher]
+command = "cargo"
+args = [
+    "watch", "--exec", 
+    "make check-all"
+]
+
+[tasks.startup-all]
+dependencies = [
+    "startup-openocd",
+    "startup-watcher"
+]
+
+[tasks.test-local]
+command = "cargo"
+args = [
+    "test", 
+    "--target", "x86_64-unknown-linux-gnu"
+]
+
+# Currently not working. See https://github.com/sagiegurari/cargo-make/issues/481
+# [tasks.coverage]
+# command = "cargo"
+# args = [
+#     "tarpaulin", 
+#     "--exclude-files", "/usr/*",
+#     "--out", "Xml"
+# ]
