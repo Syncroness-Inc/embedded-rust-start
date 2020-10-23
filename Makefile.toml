@@ -51,8 +51,8 @@ args = [
 [tasks.startup-watcher]
 command = "cargo"
 args = [
-    "watch", 
-    "--shell", "scripts/check/all.py"
+    "watch", "--exec", 
+    "make check-all"
 ]
 
 [tasks.startup-all]
@@ -68,10 +68,11 @@ args = [
     "--target", "x86_64-unknown-linux-gnu"
 ]
 
-[tasks.coverage]
-command = "cargo"
-args = [
-    "tarpaulin", 
-    "--exclude-files", "/usr/*",
-    "--out", "Xml"
-]
+# Currently not working. See https://github.com/sagiegurari/cargo-make/issues/481
+# [tasks.coverage]
+# command = "cargo"
+# args = [
+#     "tarpaulin", 
+#     "--exclude-files", "/usr/*",
+#     "--out", "Xml"
+# ]

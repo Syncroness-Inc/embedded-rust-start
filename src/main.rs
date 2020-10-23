@@ -6,17 +6,14 @@
 #![cfg_attr(feature = "embedded_platform", no_std)]
 #![cfg_attr(feature = "embedded_platform", no_main)]
 
-#[cfg(feature = "embedded_platform")] 
+#[cfg(feature = "embedded_platform")]
 use cortex_m_rt::entry;
 
 #[cfg(feature = "stm32f407")]
 use stm32f4xx_hal as hal;
 
 #[cfg(feature = "stm32f407")]
-use hal::{
-    prelude::*,
-    stm32 as board,
-};
+use hal::{prelude::*, stm32 as board};
 
 #[cfg_attr(feature = "embedded_platform", allow(unused_imports))]
 #[cfg(feature = "embedded_platform")]
@@ -28,7 +25,7 @@ use panic_halt;
 fn main() -> ! {
     let board_peripherals = board::Peripherals::take().unwrap();
     let processor_peripherals = cortex_m::Peripherals::take().unwrap();
-    
+
     // Setting system clock speed
     let clock_controller = board_peripherals.RCC.constrain();
     let system_clock = clock_controller.cfgr.sysclk(48.mhz()).freeze();
@@ -55,7 +52,7 @@ fn add_two(x: u32) -> u32 {
 mod tests {
     use super::*;
 
-    /// A trivial test to demonstrate we can run 
+    /// A trivial test to demonstrate we can run
     /// unit tests on our host platforms
     #[test]
     fn add_two_good_value() {

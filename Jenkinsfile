@@ -9,22 +9,22 @@ pipeline {
   stages {
     stage('Check') {
       steps {
-        sh './scripts/check/all.py'
+        sh 'cargo make check-all'
       }
     }
     
     stage('Test') {
       steps {
-        sh './scripts/test/local.sh'
+        sh 'cargo make test-local'
       }
     }
 
-    // stage('Coverage') {
-    //   steps {
-    //     sh './scripts/coverage.sh'
+    stage('Coverage') {
+      steps {
+        sh 'cargo make coverage'
 
-    //     step([$class: 'CoberturaPublisher', coberturaReportFile: '*.xml'])
-    //   }
-    // }
+        step([$class: 'CoberturaPublisher', coberturaReportFile: '*.xml'])
+      }
+    }
   }
 }
